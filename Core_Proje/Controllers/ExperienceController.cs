@@ -16,6 +16,7 @@ namespace Core_Proje.Controllers
             var values = experienceManager.TGetList();
             return View(values);
         }
+        //CRUD Islemleri 
         [HttpGet]
         public IActionResult AddExperience()
         {
@@ -27,7 +28,27 @@ namespace Core_Proje.Controllers
             experienceManager.TAdd(experience);
             return RedirectToAction("Index");
         }
+        public IActionResult DeleteExperince(int id)
+        {
+            var values = experienceManager.TGetByID(id);
+            experienceManager.TDelete(values);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult EditExperience(int id)
+        {
+            ViewBag.v1 = "Deneyim Guncelleme";
+            ViewBag.v2 = "Deneyimler";
+            ViewBag.v3 = "Deneyim Guncelleme";
+            var values = experienceManager.TGetByID(id);
+            return View(values);
+        }
+        [HttpPost]
+        public IActionResult EditExperience(Experience experience)
+        {
+            experienceManager.TUpdate(experience);
+            return RedirectToAction("Index");
+        }
     }
 
-}
 }
