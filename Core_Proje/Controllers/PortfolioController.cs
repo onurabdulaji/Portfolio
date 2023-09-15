@@ -23,19 +23,52 @@ namespace Core_Proje.Controllers
         [HttpGet]
         public IActionResult AddPortfolio()
         {
+            ViewBag.v1 = "Proje Listesi";
+            ViewBag.v2 = "Projelerim";
+            ViewBag.v3 = "Proje Ekleme";
             return View();
         }
         [HttpPost]
         public IActionResult AddPortfolio(Portfolio p)
         {
-            ViewBag.v1 = "Proje Listesi";
-            ViewBag.v2 = "Projelerim";
-            ViewBag.v3 = "Proje Ekleme";
             PortfolioValidator validations = new PortfolioValidator();
             ValidationResult results = validations.Validate(p);
             if (results.IsValid)
             {
                 portfolioManager.TAdd(p);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
+        }
+        public IActionResult DeletePortfolio(int id)
+        {
+            var values = portfolioManager.TGetByID(id);
+            portfolioManager.TDelete(values);
+            return RedirectToAction("Index");
+        }
+        public IActionResult EditPortfolio(int id)
+        {
+            ViewBag.v1 = "Portfolio Guncelleme";
+            ViewBag.v2 = "Portfolio";
+            ViewBag.v3 = "Portfolio Guncelleme";
+            var values = portfolioManager.TGetByID(id);
+            return View(values);
+        }
+        [HttpPost]
+        public IActionResult EditPortfolio(Portfolio portfolio)
+        {
+            PortfolioValidator validations = new PortfolioValidator();
+            ValidationResult results = validations.Validate(portfolio);
+            if (results.IsValid)
+            {
+                portfolioManager.TUpdate(portfolio);
                 return RedirectToAction("Index");
             }
             else
