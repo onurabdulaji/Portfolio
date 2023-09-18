@@ -32,8 +32,8 @@
                 <a class="sidebar-brand brand-logo" href="~/corona-free-dark-bootstrap-admin-template-1.0.0/template/index.html"><img src="~/corona-free-dark-bootstrap-admin-template-1.0.0/template/assets/images/logo.svg" alt="logo" /></a>
                 <a class="sidebar-brand brand-logo-mini" href="~/corona-free-dark-bootstrap-admin-template-1.0.0/template/index.html"><img src="~/corona-free-dark-bootstrap-admin-template-1.0.0/template/assets/images/logo-mini.svg" alt="logo" /></a>
             </div>
+            @await Html.PartialAsync("/Views/Admin/NewSidebar.cshtml")
         </nav>
-        @Html.PartialAsync("/View/Admin/NewSidebar.cshtml")
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:../../partials/_navbar.html -->
