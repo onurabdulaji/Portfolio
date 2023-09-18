@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
 }
 
 @using EntityLayer.Concrete
@@ -44,7 +44,7 @@
                     </div>
                 </td>
                     <td><a href="/Skill/DeleteSkill/@item.SkillID" class="btn btn-danger">Sil</a></td>
-                <td><a href="/Skill/EditSkill/@item.SkillID" class="btn btn-success">Guncelle</a></td>
+                    <td><a href="/Skill/EditSkill/@item.SkillID" class="btn btn-success">Guncelle</a></td>
             </tr>
             }
             
