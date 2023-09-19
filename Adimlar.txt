@@ -1,0 +1,127 @@
+
+
+Onur Abdulaji Ornek Portfolio Calismasi Taslak
+
+
+Proje Adi : Core Proje
+
+Adimlar bolum olarak ayrilmistir.
+
+*-*-*-*-*-*-*-*-*
+
+Bolum 1 : Proje Olusturma Adimlari
+
+* Katmanli Mimari Taslak
+
+** Katmanlarin Olusturulmasi
+- Entity Layer
+- DataAccessLayer
+- BusinessLayer
+- Core_Proje UI Katmani
+
+** Entiy Layer
+- Entitylerin olusturulmasi.
+- Entity Framework Core paketlerinin kurulmasi.
+- Key Attributlerin olusturulmasi.
+
+** DataAccessLayer
+- Veritabanina baglanma islemi.
+- DbContext olusturulmasi.
+- Katmanlar arasi referans olusturulmasi.
+- Context sinifi DBSetlerin olusturulmasi.
+- Migration Islemleri.
+- Interfacelerin olusturulmasi. ( Abstract )
+- Generic Interface olusturulmasi.
+- Generic Repository olusturulmasi.
+- Entity Framework Dal  kurulmasi.
+- Incluce Methodu ve Siniflarin aralarinda baglanti-relation.
+
+** BussinesLayer
+- Generic Servislerin olusturulmasi. Abstract.
+- Manager Siniflarinin olusturulmasi. Concrete.
+- Fluent Validation olusturulmasi. ValidationRules.
+
+
+** Proje Icin Bilmemiz Gereken Kodlar DAL :
+
+IGeneric Interface Sinifi 
+public interface IGenericDal<T> where T : class
+    {
+        void Insert(T t);
+        void Delete(T t);
+        void Update(T t);
+        List<T> GetList();
+        T GetByID(int id);
+    }
+
+Ornek Service Sinifi 
+public interface IFeatureDal:IGenericDal<Feature>
+    {
+    }
+
+Ornek EF Sinifi 
+public class EfExperienceDal:GenericRepository<Experience>,IExperienceDal
+    {
+    }
+
+Generic Repo Sinifi :
+public class GenericRepository<T> : IGenericDal<T> where T : class
+    {
+        public void Delete(T t)
+        {
+            using var c = new Context();
+            c.Remove(t);
+            c.SaveChanges();
+        }
+
+        public T GetByID(int id)
+        {
+            using var c = new Context();
+            return c.Set<T>().Find(id);
+        }
+
+        public List<T> GetList()
+        {
+            using var c = new Context();
+            return c.Set<T>().ToList();
+        }
+
+        public void Insert(T t)
+        {
+            using var c = new Context();
+            c.Add(t);
+            c.SaveChanges();
+        }
+
+        public void Update(T t)
+        {
+            using var c = new Context();
+            c.Update(t);
+            c.SaveChanges();
+        }
+    }
+
+
+BAL
+IGeneric Service
+
+    public interface IGenericService<T>
+    {
+        void TAdd(T t);
+        void TDelete(T t);
+        void TUpdate(T t);
+        List<T> TGetList();
+        T TGetByID(int id);
+    }
+
+BAL Absract MessageService 
+ public interface IMessageService:IGenericService<Message>
+    {
+    }
+
+
+
+Suanda bunlar tamamlandi.
+
+Baslanacak Seyler : 
+Area , Identity ve Login islemleri.
