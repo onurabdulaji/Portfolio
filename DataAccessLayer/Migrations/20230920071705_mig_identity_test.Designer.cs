@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230920040944_mig_test1")]
-    partial class mig_test1
+    [Migration("20230920071705_mig_identity_test")]
+    partial class mig_identity_test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -256,6 +256,21 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("SocialMediaID");
 
                     b.ToTable("SocialMedias");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Test1", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Test1s");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Testimonial", b =>
